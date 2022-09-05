@@ -38,6 +38,7 @@ services:
   metricbeat:
     image: docker.elastic.co/beats/metricbeat:7.13.0
     container_name: metricbeat
+    command: metricbeat -e -strict.perms=false
     user: root
     volumes:      
       - /var/run/docker.sock:/var/run/docker.sock
@@ -49,6 +50,7 @@ services:
   heartbeat:
     image: docker.elastic.co/beats/heartbeat:7.13.0
     container_name: heartbeat
+    command: heartbeat -e -strict.perms=false
     volumes:      
     - ./beats/heartbeat/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml
     environment: 
@@ -59,6 +61,7 @@ services:
   apm:
     image: docker.elastic.co/apm/apm-server-oss:7.13.0
     container_name: apm
+    command: -strict.perms=false
     volumes:      
     - ./apm/apm-server.yml:/usr/share/apm-server/apm-server.yml
     ports:
